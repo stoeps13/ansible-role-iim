@@ -66,7 +66,7 @@
   unarchive:
     src: /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
     dest: "{{ __iim_repo }}"
-  creates: "{{ __iim_repo }}/userinst"
+    creates: "{{ __iim_repo }}/userinst"
 
 - name: Run the IIM installer from {{ __iim_repo }} to install IIM at {{ __iim_path }}
   become: true
