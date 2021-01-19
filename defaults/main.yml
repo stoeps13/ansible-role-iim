@@ -2,3 +2,12 @@
 # defaults file for ansible-role-iim
 __ibm_user:     "{{ ibm_user | default('wasuser') }}"
 __install_root: "{{ install_root | default('/opt/IBM') }}"
+
+__ibm_repo: "{{ __install_root }}/repo"
+__ibm_mode: "0750"
+__iim_version: "{{ iim_version | default('1.8') }}"
+__iim_path: "{{ __install_root }}/InstallationManager"
+__iim_repo: "{{ __ibm_repo }}/IIM"
+__iim_tmp: "{{ __install_root }}/tmp"
+__iim_group: "{{ __ibm_user }}"
+__iim_mode: "{{ __ibm_mode }}"

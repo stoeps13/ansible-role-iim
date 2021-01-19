@@ -48,81 +48,81 @@
 
 - name: Is IIM already installed?
   debug:
-    msg: "Already at version {{ iim_version }} or higher with version {{ installed.stdout }}"
-  when: (installed.stdout) and (installed.stdout is version_compare(iim_version, '>='))
+    msg: "Already at version {{ __iim_version }} or higher with version {{ installed.stdout }}"
+  when: (installed.stdout) and (installed.stdout is version_compare(__iim_version, '>='))
 
-- name: Create the {{ iim_tmp }} directory
+- name: Create the {{ __iim_tmp }} directory
   become: true
   become_user: "{{ iim_user }}"
   file:
-    path: "{{ iim_tmp }}"
+    path: "{{ __iim_tmp }}"
     state: directory
-    mode: "{{ iim_mode }}"
+    mode: "{{ __iim_mode }}"
     owner: "{{ iim_user }}"
-    group: "{{ iim_group }}"
-  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(iim_version, '<')))
+    group: "{{ __iim_group }}"
+  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
 - name: Copy IIM installation binary
   become: true
   become_user: "{{ iim_user }}"
   copy:
     src: "{{ iim_src }}"
-    dest: "{{ iim_tmp }}"
-    mode: "{{ iim_mode }}"
-  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(iim_version, '<')))
+    dest: "{{ __iim_tmp }}"
+    mode: "{{ __iim_mode }}"
+  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
-- name: Remove old repo {{ iim_repo }}
+- name: Remove old repo {{ __iim_repo }}
   become: true
   become_user: "{{ iim_user }}"
   file:
-    path: "{{ iim_repo }}"
+    path: "{{ __iim_repo }}"
     state: absent
-  when: (not installed.stdout) or (installed.stdout is version_compare(iim_version, '<'))
+  when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
 
-- name: Create the repo {{ iim_repo }}
+- name: Create the repo {{ __iim_repo }}
   become: true
   become_user: "{{ iim_user }}"
   file:
-    path: "{{ iim_repo }}"
+    path: "{{ __iim_repo }}"
     state: directory
-    mode: "{{ iim_mode }}"
-  when: (not installed.stdout) or (installed.stdout is version_compare(iim_version, '<'))
+    mode: "{{ __iim_mode }}"
+  when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
 
-- name: Unzip donwloaded {{ iim_tmp }}/{{ iim_src|basename }} in the repo {{ iim_repo }}
+- name: Unzip donwloaded {{ __iim_tmp }}/{{ iim_src|basename }} in the repo {{ __iim_repo }}
   become: true
   become_user: "{{ iim_user }}"
   shell:
-    cd "{{ iim_repo }}"; unzip "{{ iim_tmp }}/{{ iim_src|basename }}"
-  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(iim_version, '<')))
+    cd "{{ __iim_repo }}"; unzip "{{ __iim_tmp }}/{{ iim_src|basename }}"
+  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
-- name: Unzip local {{ iim_local_src }} in the repo {{ iim_repo }}
+- name: Unzip local {{ iim_local_src }} in the repo {{ __iim_repo }}
   become: true
   become_user: "{{ iim_user }}"
   shell:
-    cd "{{ iim_repo }}"; unzip "{{ iim_local_src }}"
-  when: (iim_local_src is defined) and ((not installed.stdout) or (installed.stdout is version_compare(iim_version, '<')))
+    cd "{{ __iim_repo }}"; unzip "{{ iim_local_src }}"
+  when: (iim_local_src is defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
-- name: Remove temporary installation file {{ iim_tmp }}/{{ iim_src|basename }}
+- name: Remove temporary installation file {{ __iim_tmp }}/{{ iim_src|basename }}
   become: true
   become_user: "{{ iim_user }}"
   file:
-    path: "{{ iim_tmp }}/{{ iim_src|basename }}"
+    path: "{{ __iim_tmp }}/{{ iim_src|basename }}"
     state: absent
   ignore_errors: yes
   when: iim_local_src is not defined
 
-- name: Run the IIM installer from {{ iim_repo }} to install IIM at {{ iim_path }}
+- name: Run the IIM installer from {{ __iim_repo }} to install IIM at {{ __iim_path }}
   become: true
   become_user: "{{ iim_user }}"
   command:
-    '{{ iim_repo }}/userinstc -acceptLicense -installationDirectory "{{ iim_path }}"'
-  when: (not installed.stdout) or (installed.stdout is version_compare(iim_version, '<'))
+    '{{ __iim_repo }}/userinstc -acceptLicense -installationDirectory "{{ __iim_path }}"'
+  when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
 
-- name: Clean up repo {{ iim_repo }}
+- name: Clean up repo {{ __iim_repo }}
   become: true
   become_user: "{{ iim_user }}"
   file:
-    path: "{{ iim_repo }}"
+    path: "{{ __iim_repo }}"
     state: absent
   ignore_errors: yes
 #    - { role: iim, iim_src: "downloads/agent.installer.linux.gtk.x86_64_1.8.9002.20181015_1517.zip", iim_user: "{{ __ibm_user }}" }    
