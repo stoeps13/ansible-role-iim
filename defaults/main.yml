@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-ibm-installationmanager
+__ibm_user:     "{{ ibm_user | default('wasuser') }}"
+__install_root: "{{ install_root | default('/opt/IBM') }}"

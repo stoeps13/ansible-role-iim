@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  become: true
+
+  vars:
+    install_root: 
+      - name: /opt/IBM
+    ibmuser: 
+      - name: wasuser
+      
+  roles:
+    - role: stoeps13.ansible-ibm-installationmanager
