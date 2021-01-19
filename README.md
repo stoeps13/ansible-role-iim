@@ -1,4 +1,4 @@
-ansible-ibm-installationmanager
+ansible-role-iim
 =========
 
 Install and update IBM Installationmanager

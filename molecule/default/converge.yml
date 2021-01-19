@@ -11,4 +11,4 @@
       - name: wasuser
       
   roles:
-    - role: stoeps13.ansible-ibm-installationmanager
+    - role: stoeps13.ansible-role-iim

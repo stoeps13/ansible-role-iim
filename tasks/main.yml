@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-ibm-installationmanager
+# tasks file for ansible-role-iim
 - name: Install setfacl and (un)zip on Debian
   become: yes
   apt:
