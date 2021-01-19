@@ -7,6 +7,7 @@
   vars:
     install_root: /opt/IBM
     ibm_user: wasuser
+    iim_installerpackage: /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
 
   roles:
     - role: stoeps13.ansible-role-iim

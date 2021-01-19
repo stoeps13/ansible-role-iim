@@ -66,7 +66,7 @@
   become: true
   become_user: "{{ __iim_user }}"
   unarchive:
-    src: /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
+    src: "{{ __iim_installerpackage }}"
     dest: "{{ __iim_repo }}"
     creates: "{{ __iim_repo }}/userinst"
 

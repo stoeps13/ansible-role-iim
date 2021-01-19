@@ -13,6 +13,10 @@ Role Variables
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
+ibm_user: non-root user who installs the software
+install_root: target path for installation (default: /opt/IBM)
+iim_installerpackage: zip file with installation files incl path or protocol ie. http://server/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip or /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
+
 Dependencies
 ------------
 

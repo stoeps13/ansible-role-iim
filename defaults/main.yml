@@ -5,7 +5,7 @@ __install_root: "{{ install_root | default('/opt/IBM') }}"
 
 __ibm_repo: "{{ __install_root }}/repo"
 __ibm_mode: "0750"
-__iim_version: "{{ iim_version | default('1.8') }}"
+__iim_version: "{{ iim_version | default('1.9') }}"
 __iim_path: "{{ __install_root }}/InstallationManager"
 __iim_repo: "{{ __ibm_repo }}/IIM"
 __iim_tmp: "{{ __install_root }}/tmp"
@@ -13,4 +13,4 @@ __iim_group: "{{ __ibm_user }}"
 __iim_mode: "{{ __ibm_mode }}"
 __iim_user: "{{ ibm_user | default(__ibm_user) }}"
 
-__iim_src:
+__iim_installerpackage: "{{ iim_installerpackage | default('agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip') }}"
