@@ -12,3 +12,5 @@ __iim_tmp: "{{ __install_root }}/tmp"
 __iim_group: "{{ __ibm_user }}"
 __iim_mode: "{{ __ibm_mode }}"
 __iim_user: "{{ ibm_user | default(__ibm_user) }}"
+
+__iim_src:

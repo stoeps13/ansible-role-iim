@@ -62,54 +62,10 @@
     group: "{{ __iim_group }}"
   when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
-- name: Copy IIM installation binary
-  become: true
-  become_user: "{{ __iim_user }}"
-  copy:
-    src: "{{ iim_src }}"
+- name: Unzip agent installer package to {{ __iim_tmp }}
+  unarchive:
+    src: http://192.168.188.2:8081/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
     dest: "{{ __iim_tmp }}"
-    mode: "{{ __iim_mode }}"
-  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
-
-- name: Remove old repo {{ __iim_repo }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  file:
-    path: "{{ __iim_repo }}"
-    state: absent
-  when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
-
-- name: Create the repo {{ __iim_repo }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  file:
-    path: "{{ __iim_repo }}"
-    state: directory
-    mode: "{{ __iim_mode }}"
-  when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
-
-- name: Unzip donwloaded {{ __iim_tmp }}/{{ iim_src|basename }} in the repo {{ __iim_repo }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  shell:
-    cd "{{ __iim_repo }}"; unzip "{{ __iim_tmp }}/{{ iim_src|basename }}"
-  when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
-
-- name: Unzip local {{ iim_local_src }} in the repo {{ __iim_repo }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  shell:
-    cd "{{ __iim_repo }}"; unzip "{{ iim_local_src }}"
-  when: (iim_local_src is defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
-
-- name: Remove temporary installation file {{ __iim_tmp }}/{{ iim_src|basename }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  file:
-    path: "{{ __iim_tmp }}/{{ iim_src|basename }}"
-    state: absent
-  ignore_errors: yes
-  when: iim_local_src is not defined
 
 - name: Run the IIM installer from {{ __iim_repo }} to install IIM at {{ __iim_path }}
   become: true
@@ -118,11 +74,4 @@
     '{{ __iim_repo }}/userinstc -acceptLicense -installationDirectory "{{ __iim_path }}"'
   when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
 
-- name: Clean up repo {{ __iim_repo }}
-  become: true
-  become_user: "{{ __iim_user }}"
-  file:
-    path: "{{ __iim_repo }}"
-    state: absent
-  ignore_errors: yes
-#    - { role: iim, iim_src: "downloads/agent.installer.linux.gtk.x86_64_1.8.9002.20181015_1517.zip", __iim_user: "{{ __ibm_user }}" }    
+
