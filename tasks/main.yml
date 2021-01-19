@@ -3,19 +3,19 @@
 - name: Install setfacl and (un)zip on Debian
   become: yes
   apt:
-    name: 
+    name:
       - 'libacl1'
       - 'unzip'
     state: present
-    update_cache: yes 
-    force_apt_get: yes 
+    update_cache: yes
+    force_apt_get: yes
     cache_valid_time: 3600
   when: ansible_os_family == "Debian"
 
 - name: Install setfacl and unzip on RedHat
   become: yes
   yum:
-    name: 
+    name:
       - 'acl'
       - 'unzip'
     state: present
@@ -25,7 +25,7 @@
   become: true
   become_user: root
   user:
-    name: "{{__ibm_user}}"
+    name: "{{ __ibm_user }}"
 
 - name: Create the {{ __install_root }} directory
   become: true
@@ -36,7 +36,7 @@
     owner: "{{ __ibm_user }}"
     group: "{{ __ibm_user }}"
     mode: 0750
-    
+
 - name: Get the version of an IIM already installed
   become: true
   become_user: "{{ __iim_user }}"
@@ -51,18 +51,18 @@
     msg: "Already at version {{ __iim_version }} or higher with version {{ installed.stdout }}"
   when: (installed.stdout) and (installed.stdout is version_compare(__iim_version, '>='))
 
-- name: Create the {{ __iim_tmp }} directory
+- name: Create the {{ __iim_repo }} directory
   become: true
   become_user: "{{ __iim_user }}"
   file:
-    path: "{{ __iim_tmp }}"
+    path: "{{ __iim_repo   }}/IIM"
     state: directory
     mode: "{{ __iim_mode }}"
     owner: "{{ __iim_user }}"
     group: "{{ __iim_group }}"
   when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
-- name: Unzip agent installer package to {{ __iim_tmp }}
+- name: Unzip agent installer package to {{ __iim_repo }}
   unarchive:
     src: /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
     dest: "{{ __iim_repo }}"

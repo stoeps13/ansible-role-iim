@@ -7,6 +7,6 @@
   vars:
     install_root: /opt/IBM
     ibm_user: wasuser
-      
+
   roles:
     - role: stoeps13.ansible-role-iim
