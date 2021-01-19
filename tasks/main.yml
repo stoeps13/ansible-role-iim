@@ -64,7 +64,7 @@
 
 - name: Unzip agent installer package to {{ __iim_tmp }}
   unarchive:
-    src: http://192.168.188.2:8081/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
+    src: http://192.168.65.:8081/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
     dest: "{{ __iim_tmp }}"
 
 - name: Run the IIM installer from {{ __iim_repo }} to install IIM at {{ __iim_path }}
