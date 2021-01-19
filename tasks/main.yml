@@ -55,7 +55,7 @@
   become: true
   become_user: "{{ __iim_user }}"
   file:
-    path: "{{ __iim_repo   }}/IIM"
+    path: "{{ __iim_repo }}"
     state: directory
     mode: "{{ __iim_mode }}"
     owner: "{{ __iim_user }}"
@@ -63,6 +63,8 @@
   when: (iim_local_src is not defined) and ((not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<')))
 
 - name: Unzip agent installer package to {{ __iim_repo }}
+  become: true
+  become_user: "{{ __iim_user }}"
   unarchive:
     src: /mnt/d/software/agent.installer.linux.gtk.x86_64_1.9.1003.20200730_2125.zip
     dest: "{{ __iim_repo }}"
@@ -74,5 +76,3 @@
   command:
     '{{ __iim_repo }}/userinstc -acceptLicense -installationDirectory "{{ __iim_path }}"'
   when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
-
-
