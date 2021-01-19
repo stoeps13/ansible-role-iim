@@ -125,5 +125,4 @@
     path: "{{ iim_repo }}"
     state: absent
   ignore_errors: yes
-:
 #    - { role: iim, iim_src: "downloads/agent.installer.linux.gtk.x86_64_1.8.9002.20181015_1517.zip", iim_user: "{{ __ibm_user }}" }    
