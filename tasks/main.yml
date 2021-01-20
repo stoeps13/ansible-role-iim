@@ -46,14 +46,9 @@
   changed_when: false
   register: installed
 
-- name: Is IIM already installed?
-  debug:
-    msg: "Already at version {{ __iim_version }} or higher with version {{ installed.stdout }}"
-  when: (installed.stdout) and (installed.stdout is version_compare(__iim_version, '>='))
-
 - name: Create the {{ __iim_repo }} directory
   become: true
-  become_user: "{{ __iim_user }}"
+  become_user: root
   file:
     path: "{{ __iim_repo }}"
     state: directory
