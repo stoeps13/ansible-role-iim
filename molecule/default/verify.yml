@@ -12,4 +12,3 @@
   assert:
     that:
       - (installed.stdout is version_compare(__iim_version, '>=')
- 
