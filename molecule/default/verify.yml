@@ -2,6 +2,10 @@
 # Verify playbook
 - name: Verify
   hosts: all
+  vars:
+    __iim_user: wasuser
+    __iim_version: 1.8.0.4  # minimum version von HCL Connections
+
   tasks:
     - name: Get the version of an IIM already installed
       become: true
@@ -15,4 +19,4 @@
     - name: Test if IIM is installed and version >= {{ __iim_version }}
       assert:
         that:
-          - (installed.stdout is version_compare(__iim_version, '>=')
+          - (installed.stdout is version_compare(__iim_version, '>='))

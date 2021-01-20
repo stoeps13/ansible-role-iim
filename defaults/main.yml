@@ -3,7 +3,7 @@
 __ibm_user:     "{{ ibm_user | default('wasuser') }}"
 __install_root: "{{ install_root | default('/opt/IBM') }}"
 
-__ibm_repo: "{{ __install_root }}/repo"
+__ibm_repo: "{{ install_src | default(__install_root + '/repo') }}"
 __ibm_mode: "0750"
 __iim_version: "{{ iim_version | default('1.9') }}"
 __iim_path: "{{ __install_root }}/InstallationManager"
