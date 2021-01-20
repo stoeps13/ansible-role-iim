@@ -1,6 +1,8 @@
 galaxy_info:
+  role_name: iim
   author: Christoph Stoettner
   description: Install IBM Installation Manager as non-root user
+  company: Vegard IT
 
   license:
     - Apache-2.0
@@ -10,15 +12,12 @@ galaxy_info:
   platforms:
     - name: Centos
       versions:
-      - 7
-      - 8
+      - all
     - name: Ubuntu
       versions:
-      - 16.04
+      - all
 
   galaxy_tags:
     - ibm
     - installationmanager
     - iim
-
-dependencies: []
