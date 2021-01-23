@@ -1,4 +1,6 @@
 ---
+# Test needs a local file with the installer package, see variable iim_intallerpackage
+
 - name: Converge
   hosts: all
   gather_facts: true
