@@ -71,3 +71,8 @@
   command:
     '{{ __iim_repo }}/userinstc -acceptLicense -installationDirectory "{{ __iim_path }}"'
   when: (not installed.stdout) or (installed.stdout is version_compare(__iim_version, '<'))
+
+- name: Include unistall.yml if tag uninstall is present
+  include_tasks: uninstall.yml
+  tags:
+    - uninstall
