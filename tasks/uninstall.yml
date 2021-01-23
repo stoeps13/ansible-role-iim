@@ -1,0 +1,10 @@
+---
+# Add option to uninstall
+- name: Run uninstaller
+  become: true
+  become_user: "{{ __iim_user }}"
+  command: ./uninstallc
+  args:
+    chdir: "{{ __iim_path }}"
+  tags:
+    - uninstall
